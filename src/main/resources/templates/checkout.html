@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Charge</title>
+   
+   
+</head>
+<body class="bg-light pt-5">
+
+
+<form action='/api/charge' method='POST' id='checkout-form'>
+    <input type='hidden' th:value='${amount}' name='amount' />
+    <label>Price:<span th:text='${amount/100}' /></label>
+    <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
+    <script
+       src='https://checkout.stripe.com/checkout.js' 
+       class='stripe-button'
+       th:attr='data-key=${stripePublicKey}, 
+         data-amount=${amount}, 
+         data-currency=${currency}'
+       data-name='MindBoser'
+       data-description='MindBoser Assignment'
+      
+       data-locale='auto'
+       data-zip-code='false'>
+   </script>
+</form>
+
+</body>
+</html>
