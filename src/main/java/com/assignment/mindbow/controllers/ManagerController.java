@@ -28,8 +28,8 @@ public class ManagerController {
 
 	   @PostMapping(path= "/create", consumes = "application/json", produces = "application/json")
 	   public ResponseEntity<Response> createManager(@RequestBody Manager manager) throws DataNotValidException {
-			Response response = new Response();
-			 managerService.save(manager);
+			Response response;
+			response= managerService.save(manager);
 	
 			return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 		}
