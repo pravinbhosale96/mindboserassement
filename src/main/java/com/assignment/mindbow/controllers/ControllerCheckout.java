@@ -49,17 +49,16 @@ public class ControllerCheckout {
 	    }
 
 	@PostMapping("/charge")
-	public String createCharge(@RequestBody ChargeRequest chargeRequest,Model model) throws StripeExcetionCustom {
+	public ResponseEntity<Response> createCharge(@RequestBody ChargeRequest chargeRequest,Model model) throws StripeExcetionCustom {
 		
+		Response response=new Response();
 		chargeRequest.setDescription("Example charge");
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
         Charge charge = stripeService.createCharge(chargeRequest);
-        model.addAttribute("id", charge.getId());
-       
-        model.addAttribute("status", charge.getStatus());
-        model.addAttribute("chargeId", charge.getId());
-        model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        return "result";
+        response.setStatus(HttpStatus.ACCEPTED.value());
+        response.setStatusMessage("customer Charge successfully");
+        
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 		
 	}
 	
